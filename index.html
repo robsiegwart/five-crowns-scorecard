@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Five Crowns Scorecard</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+    <script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.min.js"></script>
+    <script src="lodash_core.js"></script>
+    <style>
+        .bold { font-weight: bold; }
+        .leaderboard p { display: inline-block; font-size: 1.7em; margin-right: 2em; }
+        .leaderboard span { font-size: 2em; color: darkgray; }
+        h2 { margin-top: 1.5em; }
+        .delete_btn { display: block; padding: 0.1em 0.5em; position: absolute; top: 8px; right: 10px; color: rgb(175, 175, 175); font-size: 1.1em; cursor: pointer; border-radius: 4px; }
+        .delete_btn:hover { color: rgb(204, 38, 38); text-decoration: none; background-color: rgb(226, 198, 198); }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <h1>Five Crowns Scorecard</h1>
+            <label for="date">Date:</label><input id="date" type="text" class="form-control"><br>
+            <p class="text-center"><button v-on:click="add_player" v-bind:disabled="players.length === max_players" class="btn btn-primary">Add player</button></p>
+            <table class="table table-sm">
+                <thead class="thead-light">
+                    <th>Round</th>
+                    <th scope="col" v-for="player in players" style="position: relative;">
+                        <input placeholder="Name" v-model="player.name" type="text" class="form-control bold">
+                        <a href="#" class="delete_btn" v-on:click="deletePlayer(player)" tabindex="-1">X</a>
+                    </th>
+                </thead>
+                <tbody>
+                    <tr v-for="round in rounds">
+                        <th>{{ round }}</th>
+                        <td v-for="player in players"><input v-model.number="player.score[round]" type="text" class="form-control"></td>
+                    </tr>
+                    <tfoot>
+                        <tr>
+                            <th>Total Score</th>
+                            <th v-for="player in players">{{ player.total }}</th>
+                        </tr>
+                        <tr>
+                            <td>Perfect Rounds</td>
+                            <td v-for="player in players">{{ player.num_perfect_rounds }}</td>
+                        </tr>
+                        <!-- <tr>
+                            <td></td>
+                            <td v-for="player in players"></td>
+                        </tr> -->
+                    </tfoot>
+                </tbody>
+            </table>
+            <h2>Leaderboard</h2>
+            <div class="leaderboard">
+                <p v-for="(player,index) in leaders"><span>{{ index +1}}</span> {{ player.name }} ({{ player.total }})</p>
+            </div>
+            <h2>Score Chart</h2>
+            <score-chart v-bind:chart-data="datacollection"></score-chart>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
