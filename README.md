@@ -1,6 +1,6 @@
 # five-crowns-scorecard
 
-A simple VueJS application to score a Five Crowns game.
+A simple VueJS application to score a Five Crowns card game.
 
 Features a reactive chart to plot players' scores throughout the game.
 
