@@ -17,11 +17,12 @@
         h2 { margin-top: 1.5em; }
         .delete_btn { display: block; padding: 0.1em 0.5em; position: absolute; top: 8px; right: 10px; color: rgb(175, 175, 175); font-size: 1.1em; cursor: pointer; border-radius: 4px; }
         .delete_btn:hover { color: rgb(204, 38, 38); text-decoration: none; background-color: rgb(226, 198, 198); }
+        #app { width: 99vw; margin-left: calc(-50vw + 50%); }
     </style>
 </head>
 <body>
     <div id="app">
-        <div class="container">
+        <div class="container-fluid">
             <h1>Five Crowns Scorecard</h1>
             <label for="date">Date:</label><input id="date" type="text" class="form-control"><br>
             <p class="text-center"><button v-on:click="add_player" v-bind:disabled="players.length === max_players" class="btn btn-primary">Add player</button></p>
